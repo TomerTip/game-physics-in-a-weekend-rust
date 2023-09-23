@@ -9,6 +9,10 @@ impl Vec2d {
         Vec2d {x, y}
     }
 
+    pub fn new_zero(x: f64, y: f64) -> Self {
+        Vec2d {x: 0.0, y: 0.0}
+    }
+
     pub fn get_magnitude(&self) -> f64 {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
     }

@@ -10,6 +10,10 @@ impl Vec3d {
         Vec3d {x, y, z}
     }
 
+    pub fn new_zero(x: f64, y: f64) -> Self {
+        Vec3d {x: 0.0, y: 0.0, z: 0.0}
+    }
+
     pub fn get_magnitude(&self) -> f64 {
         (self.x.powi(2) + 
          self.y.powi(2) +
