@@ -11,7 +11,7 @@ impl Vec4d {
         Vec4d {x, y, z, w}
     }
 
-    pub fn new_zero(x: f64, y: f64, z: f64, w: f64) -> Self {
+    pub fn zero(x: f64, y: f64, z: f64, w: f64) -> Self {
         Vec4d {x: 0.0, y: 0.0, z: 0.0, w: 0.0}
     }
 

@@ -9,7 +9,7 @@ impl Vec2d {
         Vec2d {x, y}
     }
 
-    pub fn new_zero(x: f64, y: f64) -> Self {
+    pub fn zero(x: f64, y: f64) -> Self {
         Vec2d {x: 0.0, y: 0.0}
     }
 
