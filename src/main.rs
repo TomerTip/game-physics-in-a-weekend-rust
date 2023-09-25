@@ -1,9 +1,11 @@
 mod vec {
     pub mod vec2d;
     pub mod vec3d;
+    pub mod vec4d;
 }
 use vec::vec2d::Vec2d;
 use vec::vec3d::Vec3d;
+use vec::vec4d::Vec4d;
 
 
 fn main() {
@@ -32,6 +34,19 @@ fn main() {
     println!("div: {:?}", vec3 / 2.0);
     println!("equal: {:?}", vec3 == vec3);
     println!("not equal: {:?}", vec3 != vec4);
+
+    let vec5 = Vec4d::new(1.0, 1.0, 2.0, 3.0);
+    let vec6 = Vec4d::new(3.0, 4.0, 5.0, -3.0);
+
+    println!("Vector 1: {:?}", vec5);
+    println!("mag: {:?}", vec5.get_magnitude());
+    println!("normal: {:?}", vec5.normalize());
+    println!("add: {:?}", vec5 + vec6);
+    println!("sub: {:?}", vec6 - vec5);
+    println!("mul: {:?}", vec5 * vec6);
+    println!("div: {:?}", vec5 / 2.0);
+    println!("equal: {:?}", vec5 == vec5);
+    println!("not equal: {:?}", vec5 != vec6);
 
 
 }

@@ -22,7 +22,18 @@ impl Vec2d {
         // Each coordinate is divided by magnitute
         let mag = self.get_magnitude();
         let inv_mag = 1.0 / mag;
-        return Vec2d { x: self.x * inv_mag, y: self.y * inv_mag}
+          
+        if mag > 0.0 {
+            return Vec2d {
+                x: self.x * inv_mag,
+                y: self.y * inv_mag
+            }
+        }
+
+        return Vec2d {
+            x: self.x,
+            y: self.y
+        }
     }
 }
 
@@ -102,5 +113,18 @@ impl std::ops::DivAssign<f64> for Vec2d {
 impl PartialEq for Vec2d {
     fn eq(&self, other: &Self) -> bool {
         (self.x == other.x) && (self.y == other.y)
+    }
+}
+
+// Implement the `Index` trait for your custom type.
+impl std::ops::Index<usize> for Vec2d {
+    type Output = f64;
+
+    fn index(&self, idx: usize) -> &f64 {
+        match idx {
+            0 => &self.x,
+            1 => &self.y,
+            _ => panic!("Index out of bounds for Vec2d"),
+        }
     }
 }
