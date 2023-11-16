@@ -10,7 +10,7 @@ impl Vec3d {
         Vec3d {x, y, z}
     }
 
-    pub fn zero(x: f64, y: f64, z: f64) -> Self {
+    pub fn zero() -> Self {
         Vec3d {x: 0.0, y: 0.0, z: 0.0}
     }
 
@@ -111,6 +111,18 @@ impl std::ops::Mul<Vec3d> for Vec3d {
     }
 }
 
+impl std::ops::Mul<f64> for Vec3d {
+    type Output = Vec3d;
+
+    fn mul(self, scalar: f64) -> Vec3d {
+        Vec3d {
+            x: self.x * scalar,
+            y: self.y * scalar,
+            z: self.z * scalar
+        }
+    }
+}
+
 impl std::ops::MulAssign<Vec3d> for Vec3d {
     fn mul_assign(&mut self, other: Vec3d) {
         self.x *= other.x;
@@ -182,3 +194,40 @@ impl std::ops::Index<usize> for Vec3d {
     }
 }
 
+impl std::ops::IndexMut<usize> for Vec3d {
+    fn index_mut(&mut self, idx: usize) -> &mut Self::Output {
+        match idx {
+            0 => &mut self.x,
+            1 => &mut self.y,
+            2 => &mut self.z,
+            _ => panic!("Index out of bounds for Vec3d"),
+        }
+    }
+}
+
+
+impl std::ops::Index<u64> for Vec3d {
+    type Output = f64;
+
+    fn index(&self, idx: u64) -> &f64 {
+        match idx {
+            0 => &self.x,
+            1 => &self.y,
+            2 => &self.z,
+            _ => panic!("Index out of bounds for Vec3d"),
+        }
+    }
+}
+
+impl std::ops::Index<i32> for Vec3d {
+    type Output = f64;
+
+    fn index(&self, idx: i32) -> &f64 {
+        match idx {
+            0 => &self.x,
+            1 => &self.y,
+            2 => &self.z,
+            _ => panic!("Index out of bounds for Vec3d"),
+        }
+    }
+}

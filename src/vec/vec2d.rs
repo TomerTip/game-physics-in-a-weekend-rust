@@ -9,7 +9,7 @@ impl Vec2d {
         Vec2d {x, y}
     }
 
-    pub fn zero(x: f64, y: f64) -> Self {
+    pub fn zero() -> Self {
         Vec2d {x: 0.0, y: 0.0}
     }
 
@@ -55,6 +55,13 @@ impl std::ops::AddAssign<Vec2d> for Vec2d {
     }
 }
 
+impl std::ops::AddAssign<f64> for Vec2d {
+    fn add_assign(&mut self, scalar: f64) {
+        self.x += scalar;
+        self.y += scalar;
+    }
+}
+
 impl std::ops::Mul<Vec2d> for Vec2d {
     type Output = Vec2d;
 
@@ -70,6 +77,13 @@ impl std::ops::MulAssign<Vec2d> for Vec2d {
     fn mul_assign(&mut self, other: Vec2d) {
         self.x *= other.x;
         self.y *= other.y;
+    }
+}
+
+impl std::ops::MulAssign<f64> for Vec2d {
+    fn mul_assign(&mut self, scalar: f64) {
+        self.x *= scalar;
+        self.y *= scalar;
     }
 }
 
@@ -124,6 +138,29 @@ impl std::ops::Index<usize> for Vec2d {
         match idx {
             0 => &self.x,
             1 => &self.y,
+            _ => panic!("Index out of bounds for Vec2d"),
+        }
+    }
+}
+
+// Implement the `Index` trait for your custom type.
+impl std::ops::Index<u64> for Vec2d {
+    type Output = f64;
+
+    fn index(&self, idx: u64) -> &f64 {
+        match idx {
+            0 => &self.x,
+            1 => &self.y,
+            _ => panic!("Index out of bounds for Vec2d"),
+        }
+    }
+}
+
+impl std::ops::IndexMut<usize> for Vec2d {
+    fn index_mut(&mut self, idx: usize) -> &mut Self::Output {
+        match idx {
+            0 =>  &mut self.x,
+            1 =>  &mut self.y,
             _ => panic!("Index out of bounds for Vec2d"),
         }
     }

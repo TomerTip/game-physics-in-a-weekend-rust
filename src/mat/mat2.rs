@@ -1,3 +1,5 @@
+use crate::vec::vec2d::Vec2d;
+
 #[derive(Debug, Clone, Copy)]
 pub struct Mat2 {
     pub rows: [Vec2d; 2]
@@ -12,7 +14,7 @@ impl Mat2 {
         Mat2 {rows: [Vec2d::zero(), Vec2d::zero()]}
     }
 
-    pub fn determinant() -> f64 {
+    pub fn determinant(self) -> f64 {
         return (self.rows[0].x * self.rows[1].y) -
                (self.rows[0].y * self.rows[1].x)
     }
