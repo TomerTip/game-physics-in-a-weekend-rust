@@ -24,7 +24,6 @@ impl Mat3 {
     }
 
     pub fn trace(&self) -> f64{
-        self.rows[0][0];
         return self.rows[0][0] +
                self.rows[1][1] +
                self.rows[2][2]
