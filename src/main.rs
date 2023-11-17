@@ -10,6 +10,10 @@ pub mod vec {
     pub mod vec3d;
 }
 
+pub mod quat {
+    pub mod quat;
+}
+
 // use vec::vec2d::Vec2d;
 // use vec::vec3d::Vec3d;
 // use mat::mat2::Mat2;
