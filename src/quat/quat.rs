@@ -24,7 +24,7 @@ impl Quat {
 
         let half_angle_radians : f64 = 0.5 * angle_radians;
         let half_cos : f64 = f64::cos(half_angle_radians);
-        let half_sin = f64::sin(half_angle_radians);
+        let half_sin: f64 = f64::sin(half_angle_radians);
 
         vec = vec.normalize();
     
