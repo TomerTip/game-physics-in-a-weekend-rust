@@ -1,5 +1,5 @@
-use crate::vec::vec3d::Vec3d;
-use crate::mat::mat2::Mat2;
+use crate::physics::vec::vec3d::Vec3d;
+use crate::physics::mat::mat2::Mat2;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Mat3 {

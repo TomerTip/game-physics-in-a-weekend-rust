@@ -3,7 +3,7 @@ use crate::physics::vec::vec3d::Vec3d;
 /************* ENUMS ****************/
 
 #[derive(Debug, Clone, Copy)]
-enum ShapeT {
+pub enum ShapeT {
     SphereShape {
         radius : f64,
         center_mass: Vec3d
@@ -19,8 +19,8 @@ enum ShapeT {
 /************* IMPLEMENTS ****************/
 
 pub trait ShapeConstructor {
-    fn new_sphere(&self, radius: f64) -> Self;
-    fn new_box(&self, width: f64, length: f64, height: f64) -> Self;
+    fn new_sphere(radius: f64) -> Self;
+    fn new_box(width: f64, length: f64, height: f64) -> Self;
 }
 
 pub trait Shape {
@@ -30,11 +30,11 @@ pub trait Shape {
 
 
 impl ShapeConstructor for ShapeT {
-    fn new_sphere(&self, radius: f64) -> Self {
+    fn new_sphere(radius: f64) -> Self {
         ShapeT::SphereShape {radius: radius, center_mass: Vec3d::zero() }
     }
 
-    fn new_box(&self, width: f64, length: f64, height: f64) -> Self {
+    fn new_box(width: f64, length: f64, height: f64) -> Self {
         let center_mass = Vec3d::new(width/2.0, length/2.0, height/2.0);
         ShapeT::BoxShape { width, length, height, center_mass }
     }
@@ -43,10 +43,10 @@ impl ShapeConstructor for ShapeT {
 impl Shape for ShapeT {
     fn get_volume(&self) -> f64 {
         match self {
-            ShapeT::BoxShape { width, length, height, center_mass } =>
+            ShapeT::BoxShape { width, length, height, .. } =>
                 width * length * height,
 
-            ShapeT::SphereShape { radius, center_mass } =>
+            ShapeT::SphereShape { radius, .. } =>
                 (4.0/3.0) * std::f64::consts::PI * f64::powf(*radius, 3.0),
         }
     }

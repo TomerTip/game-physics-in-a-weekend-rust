@@ -1,4 +1,4 @@
-use crate::vec::vec2d::Vec2d;
+use crate::physics::vec::vec2d::Vec2d;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Mat2 {

@@ -1,5 +1,5 @@
-use crate::vec::vec3d::Vec3d;
-use crate::mat::mat3::Mat3;
+use crate::physics::vec::vec3d::Vec3d;
+use crate::physics::mat::mat3::Mat3;
 
 
 #[derive(Debug, Clone, Copy)]

@@ -1,9 +1,10 @@
-use crate::vec::vec3d::Vec4d;
-use crate::mat::mat2::Mat2;
+use crate::physics::vec::vec4d::Vec4d;
+use crate::physics::vec::vec3d::Vec3d;
+use crate::physics::mat::mat3::Mat3;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Mat4 {
-    pub rows: [Vec4d; 3]
+    pub rows: [Vec4d; 4]
 }
 
 impl Mat4 {
@@ -34,14 +35,15 @@ impl Mat4 {
     pub fn determinant(&self) -> f64 {
        // det(M)=a⋅A+b⋅B+c⋅C+d⋅D
 
-       let mut det: f64 = 0;
+       let mut det: f64 = 0.0;
        let mut sign: f64 = 1.0;
 
        for j in 0..3 {
-            let minor : Mat3 = Mat4::minor(0, j);
-            det += self.rows[0][j] * minor.det() * sign;
-            sign *= -1;
+            let minor : Mat3 = self.minor(0, j as u64);
+            det += self.rows[0][j as usize] * minor.determinant() * sign;
+            sign *= -1.0;
        }
+       return det
     }
     
     pub fn transpose(&self) -> Mat4{
@@ -77,7 +79,7 @@ impl Mat4 {
         return (-1f64).powf((i + 1) as f64 + (j + 1) as f64) * minor.determinant()
     }
 
-    pub fn minor(&self, i: u64, j: u64) -> Mat2{
+    pub fn minor(&self, i: u64, j: u64) -> Mat3{
         let mut minor: Mat3 = Mat3::zero();
         let mut xx: usize;
         let mut yy: usize;
@@ -91,7 +93,7 @@ impl Mat4 {
             xx = 0;
             for x in 0..i {
                 if x == i {
-                    continu
+                    continue
                 }
                 
                 minor.rows[xx][yy] = self.rows[x as usize][y as usize];
@@ -103,7 +105,7 @@ impl Mat4 {
         return minor;
     }
 
-    pub fn orient(&self, pos: Vec3d, fwd: Vec3d, up: Vec3d) {
+    pub fn orient(&mut self, pos: Vec3d, fwd: Vec3d, up: Vec3d) {
         let left : Vec3d = up.cross(fwd);
 
         // For our coordinate system where:
@@ -114,10 +116,10 @@ impl Mat4 {
         self.rows[0] = Vec4d::new(fwd.x, left.x, up.x, pos.x);
         self.rows[1] = Vec4d::new(fwd.y, left.y, up.y, pos.y);
         self.rows[2] = Vec4d::new(fwd.z, left.z, up.z, pos.z);
-        self.rows[3] = Vec4d::new(0, 0, 0, 1);
+        self.rows[3] = Vec4d::new(0.0, 0.0, 0.0, 1.0);
     }
 
-    pub fn lookat(&self, pos: Vec3d, look: Vec3d, pos: Vec3d) {
+    pub fn lookat(&mut self, pos: Vec3d, look: Vec3d, up: Vec3d) {
         let fwd: Vec3d = (pos - look).normalize();
         let right: Vec3d = up.cross(fwd).normalize();
         let up: Vec3d = up.cross(fwd).normalize();
@@ -126,10 +128,10 @@ impl Mat4 {
         // +x−a x is = right 
         // +y−a x is = up 
         // +z−a x is = fwd
-        self.rows[0] = Vec4d::new(right.x, right.y, right.z, -pos.dot(right));
-        self.rows[1] = Vec4d::new(up.x, up.y, up.y, -pos.dot(up));
-        self.rows[2] = Vec4d::new(fwd.x, fwd.y, fwd.z, -pos.dot(fwd));
-        self.rows[3] = Vec4d::new(0, 0, 0, 1);
+        self.rows[0] = Vec4d::new(right.x, right.y, right.z, -pos.clone().dot(right));
+        self.rows[1] = Vec4d::new(up.x, up.y, up.y, -pos.clone().dot(up));
+        self.rows[2] = Vec4d::new(fwd.x, fwd.y, fwd.z, -pos.clone().dot(fwd));
+        self.rows[3] = Vec4d::new(0.0, 0.0, 0.0, 1.0);
     }
     
 }
